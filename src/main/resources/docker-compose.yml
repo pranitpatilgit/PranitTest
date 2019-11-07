@@ -1,0 +1,36 @@
+version: '3'
+
+networks:
+  jenkins-network:
+    driver: bridge
+
+volumes:
+  jenkins-home:
+
+services:
+
+  jenkins:
+    dns: 8.8.8.8
+    image: jenkins/jenkins
+    restart: always
+    container_name: jenkins_container
+    ports:
+      - "18080:8080"
+    networks:
+      - jenkins-network
+    volumes:
+      - jenkins-home:/var/jenkins_home
+      - ~/.ssh:/var/jenkins_home/.ssh
+    
+  nginx:
+    image: nginx
+    container_name: nginx_container
+    ports:
+      - "443:443"
+      - "80:80"
+    depends_on:
+      - jenkins
+    networks:
+      - jenkins-network
+    volumes:
+      - /home/pranit/temp/nginx_temp/conf.d:/etc/nginx/conf.d

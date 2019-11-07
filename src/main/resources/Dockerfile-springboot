@@ -1,0 +1,8 @@
+FROM openjdk:13-jdk-alpine
+
+RUN mkdir -p /app/springBootApp
+COPY target/PranitTest.war /app/springBootApp
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/springBootApp/PranitTest.war"]

@@ -1,0 +1,12 @@
+version: "3"
+services:
+  web:
+    image: pranitdocker/dockertest:1.0
+    deploy:
+      replicas: 2
+    ports:
+      - "8080:8080"
+    networks:
+      - networkweb
+networks:
+  networkweb:
